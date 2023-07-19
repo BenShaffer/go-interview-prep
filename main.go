@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	fmt.Println("Add code for the current LeetCode problem here leveraging the supporting data structures")
 }
