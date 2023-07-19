@@ -5,4 +5,4 @@ test:
 	go test -v ./...
 
 run:
-	make build && make test && ./interview
+	make build && make test && ./go-interview-prep
