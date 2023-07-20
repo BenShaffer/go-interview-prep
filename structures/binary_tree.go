@@ -2,27 +2,46 @@ package structures
 
 import "fmt"
 
-type BinaryTreeNode[T any] struct {
+type binaryTreeNode[T any] struct {
 	value T
-	left  *BinaryTreeNode[T]
-	right *BinaryTreeNode[T]
+	left  *binaryTreeNode[T]
+	right *binaryTreeNode[T]
 }
 
-type BinaryTree[T any] struct {
-	root *BinaryTreeNode[T]
+type binaryTree[T any] struct {
+	root *binaryTreeNode[T]
 }
 
-func NewBinaryTreeNode[T any](value T) *BinaryTreeNode[T] {
-	return &BinaryTreeNode[T]{value: value, left: nil, right: nil}
+func NewBinaryTreeNode[T any](value T) *binaryTreeNode[T] {
+	return &binaryTreeNode[T]{value: value, left: nil, right: nil}
 }
 
-func NewBinaryTree[T any](root *BinaryTreeNode[T]) *BinaryTree[T] {
-	return &BinaryTree[T]{root: root}
+func NewBinaryTree[T any](root *binaryTreeNode[T]) *binaryTree[T] {
+	return &binaryTree[T]{root: root}
 }
 
-func (bt *BinaryTree[T]) Insert(node *BinaryTreeNode[T]) {
-	// TODO: Make a queue data structure
-	// queue := NewQueue()
+// TODO: Add more tests for this method (nil root case, etc.)
+func (bt *binaryTree[T]) Insert(node *binaryTreeNode[T]) {
+	queue := NewQueue[*binaryTreeNode[T]]()
+	queue.Push(bt.root)
+
+	for queue.GetLength() != 0 {
+		current := queue.Pop()
+
+		if current.left == nil {
+			current.left = node
+			return
+		} else {
+			queue.Push(current.left)
+		}
+
+		if current.right == nil {
+			current.right = node
+			return
+		} else {
+			queue.Push(current.right)
+		}
+	}
 }
 
 // func (bt *BinaryTree) Remove(node *BinaryTreeNode) {
@@ -45,11 +64,12 @@ func (bt *BinaryTree[T]) Insert(node *BinaryTreeNode[T]) {
 
 // }
 
-func (bt *BinaryTree[T]) ToString() string {
+func (bt *binaryTree[T]) ToString() string {
 	return bt.toString("", bt.root)
 }
 
-func (bt *BinaryTree[T]) toString(treeString string, current *BinaryTreeNode[T]) string {
+// TODO: Update the formatting here to better handle the end of the tree
+func (bt *binaryTree[T]) toString(treeString string, current *binaryTreeNode[T]) string {
 	if current == nil {
 		return ""
 	}
