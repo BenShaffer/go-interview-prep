@@ -8,20 +8,21 @@ type binaryTreeNode[T any] struct {
 	right *binaryTreeNode[T]
 }
 
-type binaryTree[T any] struct {
-	root *binaryTreeNode[T]
-}
-
 func NewBinaryTreeNode[T any](value T) *binaryTreeNode[T] {
 	return &binaryTreeNode[T]{value: value, left: nil, right: nil}
+}
+
+type binaryTree[T any] struct {
+	root *binaryTreeNode[T]
 }
 
 func NewBinaryTree[T any](root *binaryTreeNode[T]) *binaryTree[T] {
 	return &binaryTree[T]{root: root}
 }
 
-// TODO: Add more tests for this method (nil root case, etc.)
+// Insert a node to the binary tree via level-order
 func (bt *binaryTree[T]) Insert(node *binaryTreeNode[T]) {
+	// TODO: Add more tests for this method (nil root case, etc.)
 	queue := NewQueue[*binaryTreeNode[T]]()
 	queue.Push(bt.root)
 
@@ -64,12 +65,13 @@ func (bt *binaryTree[T]) Insert(node *binaryTreeNode[T]) {
 
 // }
 
+// Get the string representation of the binary tree
 func (bt *binaryTree[T]) ToString() string {
 	return bt.toString("", bt.root)
 }
 
-// TODO: Update the formatting here to better handle the end of the tree
 func (bt *binaryTree[T]) toString(treeString string, current *binaryTreeNode[T]) string {
+	// TODO: Update the formatting here to better handle the end of the tree
 	if current == nil {
 		return ""
 	}

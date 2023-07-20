@@ -7,26 +7,29 @@ type linkedListNode[T any] struct {
 	next  *linkedListNode[T]
 }
 
-type linkedList[T any] struct {
-	head *linkedListNode[T]
-}
-
 func NewLinkedListNode[T any](value T) *linkedListNode[T] {
 	return &linkedListNode[T]{value: value, next: nil}
 }
 
+// Get the T value of the node
 func (n *linkedListNode[T]) GetValue() T {
 	return n.value
 }
 
+// Get the string representation of the node
 func (n *linkedListNode[T]) ToString() string {
 	return fmt.Sprintf("Value %v, Next: %v", n.value, n.next)
+}
+
+type linkedList[T any] struct {
+	head *linkedListNode[T]
 }
 
 func NewLinkedList[T any](node *linkedListNode[T]) *linkedList[T] {
 	return &linkedList[T]{node}
 }
 
+// Add the node to the end of the linked list
 func (ll *linkedList[T]) Append(node *linkedListNode[T]) {
 	tail := ll.head
 
@@ -38,6 +41,7 @@ func (ll *linkedList[T]) Append(node *linkedListNode[T]) {
 	}
 }
 
+// Fetch the last node in the linked list
 func (ll *linkedList[T]) GetTail() *linkedListNode[T] {
 	current := ll.head
 
@@ -48,6 +52,7 @@ func (ll *linkedList[T]) GetTail() *linkedListNode[T] {
 	return current
 }
 
+// Get the length of the linked list
 func (ll *linkedList[T]) GetLength() int {
 	current := ll.head
 	length := 0
